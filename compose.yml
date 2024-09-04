@@ -1,15 +1,11 @@
 services:
   app:
-    image: node:18-alpine
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: carvach-ai-demo
-    working_dir: /usr/src/app
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
-      - ./logs:/var/log/carvach-ai-demo
     ports:
       - '8000:8000'
     env_file:
       - .env
-    command: sh -c "npm install -g pnpm && pnpm install && pnpm run start:prod 2>&1 | tee /var/log/nestjs-app/app.log"
     restart: always
